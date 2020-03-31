@@ -1,6 +1,5 @@
 //Create a variable array to hold default buttons initially then added buttons
 var animals = ["Falcon", "Chicken", "Tiger", "Snake", "Sugar Glider"];
-var apiKey = Kq0p36UhODAnuZDZa2VYKZ2XwlC6XzHw
 
 function renderButtons(){
     //deletes the buttons before loading old and new buttons or it would duplicate.
@@ -18,6 +17,28 @@ function renderButtons(){
         //adds the button to the buttons-view dive
         $("#buttons-view").append(a);
     }
-
 }
 renderButtons();
+
+function displayAnimalGif() {
+    var animal = $(this).attr("data-name");
+    var queryUrl = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=Kq0p36UhODAnuZDZa2VYKZ2XwlC6XzHw&limit=10";
+
+    $.ajax({
+        url: queryUrl,
+        method: "GET"
+    }).then(function(response) {
+        console.log(response);
+
+    var gifDiv = $("<div class='animal'>")
+
+    var rating = response.Rated;
+
+    var displayRating = $("<p>").text("Rating: " + rating);
+
+    gifDiv.append(displayRating);
+
+        
+
+    });
+};
