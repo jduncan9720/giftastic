@@ -17,6 +17,7 @@ function renderButtons(){
         a.text(animals[i]);
         //adds the button to the buttons-view dive
         $("#buttons-view").append(a);
+        
     }
 }
 renderButtons();
@@ -24,28 +25,32 @@ renderButtons();
 //We need to click on an image and have it pull the gifs from giphy.
 
 function displayAnimalGif() {
+    $("#gifsView").empty();
     var animal = $(this).attr("data-name");
     var queryUrl = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=Kq0p36UhODAnuZDZa2VYKZ2XwlC6XzHw&limit=10";
-
+   
     $.ajax({ url: queryUrl, method: "GET" }).then(function(response) {
         console.log(response);
+        
+        for (i = 0; i < response.data.length; i++) {
+            var gifDiv = $("<div class='gifStore'>");
 
-        var gifDiv = $("<div class='gifStore'>")
+            var gifs = response.data[i].images.fixed_height_still.url;
+            //gifs.addClass("gif");
+            var displaygifs = $("<img>").attr("src", gifs);
+            gifDiv.append(displaygifs);
 
-        var rating = response.data[0].rating;
-        var displayRating = $("<p>").text("Rating: " + rating);
-        gifDiv.append(displayRating);
+            var rating = response.data[i].rating;
+            var displayRating = $("<p>").text("Rating: " + rating);
+            gifDiv.append(displayRating);
     
-        var gifs = response.data[0].images.downsized.url;
-        var displaygifs = $("<img>").attr("src", gifs);
-        gifDiv.append(displaygifs);
-        
-        $("#gifsView").prepend(gifDiv)
-        
-        console.log(gifs)
+            $("#gifsView").prepend(gifDiv);
+        }
 
     });
 };
+
+
 
 $("#add-animal").on("click", function(event) {
     event.preventDefault();
@@ -55,4 +60,6 @@ $("#add-animal").on("click", function(event) {
 });
 
 $(document).on("click", ".animal", displayAnimalGif);
-//$(document).on("click", ".gifStore", displayAnimalGif);
+$(document).on("click", ".gif", function(){
+    $(this).attr('src', $(this).data.images.fixed_height_downsampled);
+});
