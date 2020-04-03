@@ -47,5 +47,12 @@ function displayAnimalGif() {
     });
 };
 
+$("#add-animal").on("click", function(event) {
+    event.preventDefault();
+    var addChar = $("#animal-input").val().trim();
+    animals.push(addChar);
+    renderButtons();
+});
+
 $(document).on("click", ".animal", displayAnimalGif);
-$(document).on("click", ".gifStore", displayAnimalGif);
+//$(document).on("click", ".gifStore", displayAnimalGif);
