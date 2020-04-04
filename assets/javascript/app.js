@@ -1,5 +1,5 @@
 //Create a variable array to hold default buttons initially then added buttons
-var games = ["The Witcher 3", "Cyberpunk 2077", "Titanfall 2", "Breath of the Wild", "God of War", "The Last of Us", "Doom 2016",];
+var games = ["The Witcher 3", "Cyberpunk 2077", "Titanfall 2", "Breath of the Wild", "God of War", "The Last of Us", "Doom 2016"];
 
 
 function renderButtons(){
@@ -33,12 +33,16 @@ function displaygameGif() {
         console.log(response);
         
         for (i = 0; i < response.data.length; i++) {
+
             var gifDiv = $("<div class='gifStore'>");
 
-            var gifs = response.data[i].images.fixed_height_downsampled.url;
-            //gifs.addClass("gif");
-            var displaygifs = $("<img>").attr("src", gifs);
-            gifDiv.append(displaygifs);
+            var gifs = response.data[i].images.fixed_height_still.url;
+            var animateGifs = response.data[i].images.fixed_height_downsampled.url;
+            var displayGifs = $("<img>").attr("src", gifs);
+            displayGifs.attr("still-image", gifs);
+            displayGifs.attr("looping-image", animateGifs);
+            displayGifs.attr("state", "still");
+            gifDiv.append(displayGifs);
 
             var rating = response.data[i].rating;
             var displayRating = $("<p>").text("Rating: " + rating);
@@ -50,8 +54,6 @@ function displaygameGif() {
     });
 };
 
-
-
 $("#add-game").on("click", function(event) {
     event.preventDefault();
     var addChar = $("#game-input").val().trim();
@@ -60,6 +62,17 @@ $("#add-game").on("click", function(event) {
 });
 
 $(document).on("click", ".game", displaygameGif);
-$(document).on("click", ".gif", function(){
-    $(this).attr('src', $(this).data.images.fixed_height_downsampled);
+
+$(document).on("click", "img", function(){
+    var state = $(this).attr("state");
+
+    if(state === "still"){
+         var animatedUrl = $(this).attr("looping-image");
+        $(this).attr("src", animatedUrl);
+        $(this).attr("state", "animate");
+    } else {
+        var stillUrl = $(this).attr("still-image");
+        $(this).attr("src", stillUrl);
+        $(this).attr("state", "still");
+    }
 });
