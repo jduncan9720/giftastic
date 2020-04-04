@@ -2,4 +2,16 @@
     float: left;
     margin: 5px;
 }
-
+.game{
+    margin: 10px;
+}
+#add-game {
+    margin: 10px 0px 10px 0px;
+}
+body{
+    background-image: url("../images/cybermetro.jpg");
+}
+h1{
+    font-family: 'Orbitron', sans-serif;
+    color: floralwhite;
+}
