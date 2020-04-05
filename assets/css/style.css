@@ -9,9 +9,15 @@
     margin: 10px 0px 10px 0px;
 }
 body{
-    background-image: url("../images/cybermetro.jpg");
+    background-image: url("../images/cybercity3.jpg");
+    background-size: 100%;
+    background-attachment: fixed;
+    color: rgb(26, 103, 103);
+    font-family: 'Orbitron', sans-serif;
+    
+
 }
 h1{
     font-family: 'Orbitron', sans-serif;
-    color: floralwhite;
+    color: rgb(26, 103, 103);
 }
