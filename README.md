@@ -1,4 +1,4 @@
-# giftastic
+# Giftastic
 
 ## What my project does:
 Giftastic is a page that will return 10 Gifs based on a set of default buttons and
